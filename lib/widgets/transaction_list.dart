@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:intl/intl.dart';
 import 'package:peronal_expenes_app/models/transaction.dart';
 
@@ -9,8 +10,9 @@ class TransactionList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: transactions.map((transaction) {
+    return Container(
+      height: 400,
+      child: ListView.builder(itemCount: transactions.length,scrollDirection: Axis.vertical,itemBuilder: (context, index) {
         return Card(
           child: Container(
             child: Row(
@@ -24,7 +26,7 @@ class TransactionList extends StatelessWidget {
                           color: Colors.purple,
                           width: 2,
                           style: BorderStyle.solid)),
-                  child: Text('₦${transaction.amount}',
+                  child: Text('₦${transactions[index].amount}',
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 20,
@@ -36,12 +38,12 @@ class TransactionList extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        transaction.title,
+                        transactions[index].title,
                         style: TextStyle(
                             fontWeight: FontWeight.bold, fontSize: 15),
                       ),
                       Text(
-                        DateFormat.yMMMMd().format(transaction.date),
+                        DateFormat.yMMMMd().format(transactions[index].date),
                         style: TextStyle(color: Colors.grey),
                       )
                     ],
@@ -51,7 +53,7 @@ class TransactionList extends StatelessWidget {
             ),
           ),
         );
-      }).toList(),
+      }),
     );
   }
 }
