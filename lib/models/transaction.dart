@@ -2,13 +2,13 @@ class Transaction {
   int id;
   String title;
   double amount;
-  DateTime time;
+  DateTime date;
 
   Transaction({
     required this.id,
     required this.title,
     required this.amount,
-    required this.time,
+    required this.date,
   });
 
   String dfa() {
