@@ -29,7 +29,7 @@ class NewTransaction extends StatelessWidget {
               controller: amountController,
             ),
             FlatButton(
-              onPressed: ()=>addTx(titleController.text,double.parse(amountController.text)),
+              onPressed: ()=>addTx("allo",500),
               child: const Text(
                 "Add Transaction",
                 style: TextStyle(color: Colors.purple),

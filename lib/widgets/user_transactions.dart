@@ -34,7 +34,6 @@ class _UserTransactionsState extends State<UserTransactions> {
       date: DateTime.now(),
       id: DateTime.now().millisecondsSinceEpoch,
     );
-    print(newTx);
     setState(() {
       _userTransactions.add(newTx);
     });

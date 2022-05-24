@@ -11,7 +11,4 @@ class Transaction {
     required this.date,
   });
 
-  String dfa() {
-    return "Hello world";
-  }
 }
