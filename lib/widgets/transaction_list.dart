@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:intl/intl.dart';
 import 'package:peronal_expenes_app/models/transaction.dart';
+import 'package:peronal_expenes_app/widgets/new_transaction.dart';
 
 class TransactionList extends StatelessWidget {
   List<Transaction> transactions;
@@ -26,28 +27,26 @@ class TransactionList extends StatelessWidget {
                           color: Colors.purple,
                           width: 2,
                           style: BorderStyle.solid)),
-                  child: Text('₦${transactions[index].amount}',
-                      style: TextStyle(
+                  child: Text('₦${transactions[index].amount.toStringAsFixed(2)}',
+                      style: const TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 20,
                         color: Colors.purple,
                       )),
                 ),
-                Container(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        transactions[index].title,
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 15),
-                      ),
-                      Text(
-                        DateFormat.yMMMMd().format(transactions[index].date),
-                        style: TextStyle(color: Colors.grey),
-                      )
-                    ],
-                  ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      transactions[index].title,
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold, fontSize: 15),
+                    ),
+                    Text(
+                      DateFormat.yMMMMd().format(transactions[index].date),
+                      style: TextStyle(color: Colors.grey),
+                    )
+                  ],
                 )
               ],
             ),
