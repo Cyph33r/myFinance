@@ -9,9 +9,14 @@ import 'models/transaction.dart';
 
 void main() => runApp(MyApp());
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   MyApp({Key? key}) : super(key: key);
 
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -51,6 +56,7 @@ class _MyHomePageState extends State<MyHomePage> {
       date: DateTime.now(),
       id: DateTime.now().millisecondsSinceEpoch,
     );
+    userTransactions.add(newTx);
   }
 
   void startNewTransaction(BuildContext context) {
