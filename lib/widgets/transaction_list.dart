@@ -24,7 +24,7 @@ class TransactionList extends StatelessWidget {
                       const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
                   decoration: BoxDecoration(
                       border: Border.all(
-                          color: Colors.purple,
+                          color: Theme.of(context).colorScheme.primary,
                           width: 2,
                           style: BorderStyle.solid)),
                   child: Text('₦${transactions[index].amount.toStringAsFixed(2)}',
@@ -39,8 +39,7 @@ class TransactionList extends StatelessWidget {
                   children: [
                     Text(
                       transactions[index].title,
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold, fontSize: 15),
+                      style: Theme.of(context).textTheme.subtitle2,
                     ),
                     Text(
                       DateFormat.yMMMMd().format(transactions[index].date),

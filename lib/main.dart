@@ -20,7 +20,25 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter App',
+      title: 'Personal Expenses',
+      theme: ThemeData(
+        colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.purple)
+            .copyWith(secondary: Colors.amber),
+        fontFamily: 'Quicksand',
+        appBarTheme: AppBarTheme(
+          titleTextStyle: ThemeData.dark()
+              .textTheme
+              .subtitle2
+              ?.copyWith(fontSize: 20, fontFamily: 'OpenSans'),
+        ),
+        textTheme: ThemeData.dark().textTheme.copyWith(
+              subtitle2: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 17,
+                fontFamily: 'OpenSans',
+              ),
+            ),
+      ),
       home: MyHomePage(),
     );
   }
@@ -64,7 +82,7 @@ class _MyHomePageState extends State<MyHomePage> {
         context: context,
         builder: (context) {
           return GestureDetector(
-            onTap: (){},
+            onTap: () {},
             behavior: HitTestBehavior.opaque,
             child: NewTransaction(addNewTransaction),
           );
