@@ -1,8 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
+import 'package:peronal_expenes_app/widgets/chart.dart';
 import 'package:peronal_expenes_app/widgets/new_transaction.dart';
 import 'package:peronal_expenes_app/widgets/transaction_list.dart';
 import 'models/transaction.dart';
@@ -22,7 +21,8 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       title: 'Personal Expenses',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.purple)
+        colorScheme: ColorScheme.fromSwatch(
+                primarySwatch: Colors.purple, accentColor: Colors.amber)
             .copyWith(secondary: Colors.amber),
         fontFamily: 'Quicksand',
         appBarTheme: AppBarTheme(
@@ -108,13 +108,7 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            SizedBox(
-              child: Card(
-                color: Colors.blue,
-                child: Text('CHART!'),
-                elevation: 5,
-              ),
-            ),
+            Chart(),
             TransactionList(userTransactions),
           ],
         ),
