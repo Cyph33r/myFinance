@@ -6,24 +6,28 @@ class ChartBar extends StatelessWidget {
   final double pctOfTotalSpent;
 
   ChartBar(this.label, this.spending, this.pctOfTotalSpent, {Key? key})
-      : super(key: key) {
-    print(pctOfTotalSpent);
-  }
+      : super(key: key) {}
 
   @override
   Widget build(BuildContext context) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
-      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        Text(spending.toStringAsFixed(2)),
+        FittedBox(
+          child: Text(
+            '₦${spending.toStringAsFixed(0)}',
+          ),
+        ),
+        const SizedBox(
+          height: 2,
+        ),
         Stack(
           children: [
             Container(
-              height: 100,
-              width: 10,
+              height: 70,
+              width: 14,
               decoration: BoxDecoration(
-                  border: Border.all(color: Colors.grey, width: 1.0),
+                  border: Border.all(color: Colors.grey, width: 2.0),
                   color: const Color.fromARGB(255, 217, 217, 217),
                   borderRadius: BorderRadius.circular(10)),
               child: FractionallySizedBox(
@@ -38,6 +42,9 @@ class ChartBar extends StatelessWidget {
               ),
             ),
           ],
+        ),
+        const SizedBox(
+          height: 3,
         ),
         Text(label)
       ],

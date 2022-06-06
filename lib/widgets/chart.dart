@@ -23,7 +23,7 @@ class Chart extends StatelessWidget {
       }
       print('amount $totalAmount');
       return {
-        'day': DateFormat('E').format(weekDay).substring(0, 2),
+        'day': DateFormat('E').format(weekDay)[0],
         'amount': totalAmount
       };
     });
@@ -38,23 +38,23 @@ class Chart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 150,
-      child: Card(
-        child: SizedBox(
-          height: 150,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            crossAxisAlignment: CrossAxisAlignment.end,
-              children: groupedTransactions
-                  .map((day) => ChartBar(
-                      day['day'] as String,
-                      day['amount'] as double,
-                      (day['amount'] as double) / totalSpending))
-                  .toList()),
-        ),
-        elevation: 6,
+    return Card(
+      margin: const EdgeInsets.all(20),
+      child: Padding(
+        padding: const EdgeInsets.all(10),
+        child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: groupedTransactions
+                .map((day) => Flexible(
+                      fit: FlexFit.tight,
+                      child: ChartBar(
+                          day['day'] as String,
+                          day['amount'] as double,
+                          (day['amount'] as double) / totalSpending),
+                    ))
+                .toList()),
       ),
+      elevation: 6,
     );
   }
 }
