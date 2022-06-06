@@ -31,7 +31,7 @@ class _MyAppState extends State<MyApp> {
               .subtitle2
               ?.copyWith(fontSize: 20, fontFamily: 'OpenSans'),
         ),
-        textTheme: ThemeData.dark().textTheme.copyWith(
+        textTheme: ThemeData.light().textTheme.copyWith(
               subtitle2: TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 17,
@@ -57,7 +57,7 @@ class _MyHomePageState extends State<MyHomePage> {
       id: 1,
       title: 'New Shoes',
       amount: 69.99,
-      date: DateTime.now(),
+      date: DateTime(2022, 6, 5),
     ),
     Transaction(
       id: 2,
@@ -67,6 +67,11 @@ class _MyHomePageState extends State<MyHomePage> {
     ),
   ];
 
+  List<Transaction> get recentTransactions => userTransactions
+      .where((transaction) =>
+          transaction.date.isAfter(DateTime.now().subtract(Duration(days: 7))))
+      .toList();
+
   void addNewTransaction(String txTitle, double txAmount) {
     Transaction newTx = Transaction(
       title: txTitle,
@@ -74,7 +79,7 @@ class _MyHomePageState extends State<MyHomePage> {
       date: DateTime.now(),
       id: DateTime.now().millisecondsSinceEpoch,
     );
-    userTransactions.add(newTx);
+    setState(() => userTransactions.add(newTx));
   }
 
   void startNewTransaction(BuildContext context) {
@@ -108,7 +113,7 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            Chart(),
+            Chart(recentTransactions),
             TransactionList(userTransactions),
           ],
         ),
