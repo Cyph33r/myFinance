@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:intl/intl.dart';
@@ -36,43 +38,27 @@ class TransactionList extends StatelessWidget {
                 scrollDirection: Axis.vertical,
                 itemBuilder: (context, index) {
                   return Card(
-                    elevation: 8,
-                    child: Container(
-                      child: Row(
-                        children: [
-                          Container(
-                            padding: EdgeInsets.all(10),
-                            margin: const EdgeInsets.symmetric(
-                                horizontal: 15, vertical: 10),
-                            decoration: BoxDecoration(
-                                border: Border.all(
-                                    color:
-                                        Theme.of(context).colorScheme.primary,
-                                    width: 2,
-                                    style: BorderStyle.solid)),
+                    elevation: 5,
+                    child: ListTile(
+                      leading: CircleAvatar(
+                        child: FittedBox(
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
                             child: Text(
-                                '₦${transactions[index].amount.toStringAsFixed(2)}',
-                                style: const TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 20,
-                                  color: Colors.purple,
-                                )),
+                                '\$${transactions[index].amount.toStringAsFixed(2)}'),
                           ),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                transactions[index].title,
-                                style: Theme.of(context).textTheme.subtitle2,
-                              ),
-                              Text(
-                                DateFormat.yMMMMd()
-                                    .format(transactions[index].date),
-                                style: TextStyle(color: Colors.grey),
-                              )
-                            ],
-                          )
-                        ],
+                        ),
+                      ),
+                      title: Text(transactions[index].title),
+                      subtitle: Text(
+                        DateFormat.yMMMEd().format(transactions[index].date),
+                      ),
+                      trailing: IconButton(
+                        splashColor: Theme.of(context).primaryColor,
+                        focusColor: Theme.of(context).primaryColor,
+                        hoverColor: Theme.of(context).primaryColor,
+                        icon: Icon(Icons.delete,color: Colors.red,),
+                        onPressed: () {},
                       ),
                     ),
                   );

@@ -13,9 +13,12 @@ class ChartBar extends StatelessWidget {
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
-        FittedBox(
-          child: Text(
-            '₦${spending.toStringAsFixed(0)}',
+        SizedBox(
+          height: 20,
+          child: FittedBox(
+            child: Text(
+              '₦${spending.toStringAsFixed(0)}',
+            ),
           ),
         ),
         const SizedBox(
