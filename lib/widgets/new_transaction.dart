@@ -49,64 +49,67 @@ class _NewTransactionState extends State<NewTransaction> {
   Widget build(BuildContext context) {
     return Card(
       elevation: 5,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.end,
-        children: [
-          TextField(
-            decoration: const InputDecoration(labelText: "Title"),
-            style: Theme.of(context).textTheme.subtitle2,
-            controller: titleController,
-            keyboardType: TextInputType.text,
-          ),
-          TextField(
-            decoration: const InputDecoration(labelText: "Amount"),
-            style: Theme.of(context).textTheme.subtitle2,
-            controller: amountController,
-            keyboardType:
-                TextInputType.numberWithOptions(signed: false, decimal: true),
-            onSubmitted: (_) => _submitTransaction(),
-          ),
-          SizedBox(
-            height: 70,
-            child: Row(
-              children: [
-                Expanded(
-                  child: Text(
-                    currentTime == null
-                        ? 'No Date Chosen'
-                        : 'Transaction Date: ${DateFormat.yMd().format(currentTime!)}',
-                    style: TextStyle(fontWeight: FontWeight.bold),
-                  ),
-                ),
-                SizedBox(
-                  width: 10,
-                ),
-                TextButton(
-                  style: TextButton.styleFrom(
-                    textStyle: TextStyle(
-                      color: Theme.of(context).colorScheme.primary,
+      child: Padding(
+        padding: const EdgeInsets.all(10.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.end,
+          children: [
+            TextField(
+              decoration: const InputDecoration(labelText: "Title",),
+              style: Theme.of(context).textTheme.subtitle2,
+              controller: titleController,
+              keyboardType: TextInputType.text,
+            ),
+            TextField(
+              decoration: const InputDecoration(labelText: "Amount",),
+              style: Theme.of(context).textTheme.subtitle2,
+              controller: amountController,
+              keyboardType:
+                  TextInputType.numberWithOptions(signed: false, decimal: true),
+              onSubmitted: (_) => _submitTransaction(),
+            ),
+            SizedBox(
+              height: 70,
+              child: Row(
+                children: [
+                  Expanded(
+                    child: Text(
+                      currentTime == null
+                          ? 'No Date Chosen'
+                          : 'Transaction Date: ${DateFormat.yMd().format(currentTime!)}',
+                      style: TextStyle(fontWeight: FontWeight.bold),
                     ),
                   ),
-                  onPressed: () => _getTransactionDate(),
-                  child: Text(
-                    'Choose Date',
-                    style: TextStyle(fontWeight: FontWeight.bold),
+                  SizedBox(
+                    width: 10,
                   ),
-                )
-              ],
-            ),
-          ),
-          ElevatedButton(
-            onPressed: _submitTransaction,
-            style: ElevatedButton.styleFrom(
-              elevation: 5,
-              textStyle: TextStyle(
-                color: Theme.of(context).textTheme.button?.color,
+                  TextButton(
+                    style: TextButton.styleFrom(
+                      textStyle: TextStyle(
+                        color: Theme.of(context).colorScheme.primary,
+                      ),
+                    ),
+                    onPressed: () => _getTransactionDate(),
+                    child: Text(
+                      'Choose Date',
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                  )
+                ],
               ),
             ),
-            child: Text("Add Transaction"),
-          )
-        ],
+            ElevatedButton(
+              onPressed: _submitTransaction,
+              style: ElevatedButton.styleFrom(
+                elevation: 5,
+                textStyle: TextStyle(
+                  color: Theme.of(context).textTheme.button?.color,
+                ),
+              ),
+              child: Text("Add Transaction"),
+            )
+          ],
+        ),
       ),
     );
   }

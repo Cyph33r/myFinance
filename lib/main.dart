@@ -72,6 +72,54 @@ class _MyHomePageState extends State<MyHomePage> {
       amount: 16.53,
       date: DateTime.now(),
     ),
+    Transaction(
+      id: lastIndex++,
+      title: 'Weekly Groceries',
+      amount: 16.53,
+      date: DateTime.now(),
+    ),
+    Transaction(
+      id: lastIndex++,
+      title: 'Weekly Groceries',
+      amount: 16.53,
+      date: DateTime.now(),
+    ),
+    Transaction(
+      id: lastIndex++,
+      title: 'Weekly Groceries',
+      amount: 16.53,
+      date: DateTime.now(),
+    ),
+    Transaction(
+      id: lastIndex++,
+      title: 'Weekly Groceries',
+      amount: 16.53,
+      date: DateTime.now(),
+    ),
+    Transaction(
+      id: lastIndex++,
+      title: 'Weekly Groceries',
+      amount: 16.53,
+      date: DateTime.now(),
+    ),
+    Transaction(
+      id: lastIndex++,
+      title: 'Weekly Groceries',
+      amount: 16.53,
+      date: DateTime.now(),
+    ),
+    Transaction(
+      id: lastIndex++,
+      title: 'Weekly Groceries',
+      amount: 16.53,
+      date: DateTime.now(),
+    ),
+    Transaction(
+      id: lastIndex++,
+      title: 'Weekly Groceries',
+      amount: 16.53,
+      date: DateTime.now(),
+    ),
   ];
 
   List<Transaction> get recentTransactions => userTransactions
@@ -109,27 +157,35 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    var appbar = AppBar(
+      title: const Text('Flutter App'),
+      actions: [
+        IconButton(
+            onPressed: () {
+              startNewTransaction(context);
+            },
+            icon: Icon(Icons.add)),
+      ],
+    );
+    double frameInsetY =
+        appbar.preferredSize.height + MediaQuery.of(context).padding.top;
+    Size screenSize = MediaQuery.of(context).size;
+    double availableHeight = screenSize.height - frameInsetY;
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      appBar: AppBar(
-        title: const Text('Flutter App'),
-        actions: [
-          IconButton(
-              onPressed: () {
-                startNewTransaction(context);
-              },
-              icon: Icon(Icons.add)),
+      appBar: appbar,
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: <Widget>[
+          SizedBox(
+            height: availableHeight * .3,
+            child: Chart(recentTransactions),
+          ),
+          SizedBox(
+            height: availableHeight * .7,
+            child: TransactionList(userTransactions, _deleteTransaction),
+          ),
         ],
-      ),
-      body: SingleChildScrollView(
-        scrollDirection: Axis.vertical,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: <Widget>[
-            Chart(recentTransactions),
-            TransactionList(userTransactions,_deleteTransaction),
-          ],
-        ),
       ),
       floatingActionButtonLocation:
           FloatingActionButtonLocation.miniCenterFloat,
