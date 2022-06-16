@@ -1,15 +1,18 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:intl/intl.dart';
 import 'package:peronal_expenes_app/models/transaction.dart';
 import 'package:peronal_expenes_app/widgets/new_transaction.dart';
 
 class TransactionList extends StatelessWidget {
-  List<Transaction> transactions;
+  final List<Transaction> transactions;
+  final Function(int) removeTransaction;
 
-  TransactionList(this.transactions, {Key? key}) : super(key: key);
+  TransactionList(this.transactions, this.removeTransaction, {Key? key})
+      : super(key: key){
+    print(transactions);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +21,7 @@ class TransactionList extends StatelessWidget {
             children: [
               Text(
                 "No Transactions added yet",
-                style: Theme.of(context).textTheme.subtitle2,
+                style: Theme.of(context).textTheme.subtitle1,
               ),
               const SizedBox(
                 height: 20,
@@ -41,11 +44,14 @@ class TransactionList extends StatelessWidget {
                     elevation: 5,
                     child: ListTile(
                       leading: CircleAvatar(
+                        backgroundColor: Theme.of(context).colorScheme.primary,
                         child: FittedBox(
                           child: Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: Text(
-                                '\$${transactions[index].amount.toStringAsFixed(2)}'),
+                              '\$${transactions[index].amount.toStringAsFixed(2)}',
+                              style: Theme.of(context).textTheme.button,
+                            ),
                           ),
                         ),
                       ),
@@ -54,11 +60,13 @@ class TransactionList extends StatelessWidget {
                         DateFormat.yMMMEd().format(transactions[index].date),
                       ),
                       trailing: IconButton(
-                        splashColor: Theme.of(context).primaryColor,
-                        focusColor: Theme.of(context).primaryColor,
-                        hoverColor: Theme.of(context).primaryColor,
-                        icon: Icon(Icons.delete,color: Colors.red,),
-                        onPressed: () {},
+                        color: Theme.of(context).errorColor,
+                        icon: Icon(
+                          Icons.delete,
+                          color: Colors.red,
+                        ),
+                        onPressed: () =>
+                            removeTransaction(transactions[index].id),
                       ),
                     ),
                   );

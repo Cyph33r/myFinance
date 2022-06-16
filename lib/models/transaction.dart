@@ -1,5 +1,5 @@
 class Transaction {
-  int id;
+  final int id;
   String title;
   double amount;
   DateTime date;
@@ -11,4 +11,8 @@ class Transaction {
     required this.date,
   });
 
+  @override
+  String toString() {
+    return '[id: $id\ntitle: $title\namount: $amount\ndate: $date\n]';
+  }
 }

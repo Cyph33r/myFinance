@@ -9,7 +9,7 @@ import 'models/transaction.dart';
 void main() => runApp(MyApp());
 
 class MyApp extends StatefulWidget {
-  MyApp({Key? key}) : super(key: key);
+  const MyApp({Key? key}) : super(key: key);
 
   @override
   State<MyApp> createState() => _MyAppState();
@@ -24,19 +24,19 @@ class _MyAppState extends State<MyApp> {
         colorScheme: ColorScheme.fromSwatch(
                 primarySwatch: Colors.purple, accentColor: Colors.amber)
             .copyWith(secondary: Colors.amber),
-        fontFamily: 'Quicksand',
+        fontFamily: 'Droid Sans',
         appBarTheme: AppBarTheme(
           titleTextStyle: ThemeData.dark()
               .textTheme
-              .subtitle2
+              .subtitle1
               ?.copyWith(fontSize: 20, fontFamily: 'OpenSans'),
         ),
         textTheme: ThemeData.light().textTheme.copyWith(
-              subtitle2: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 17,
-                fontFamily: 'OpenSans',
-              ),
+              subtitle1: TextStyle(
+                  fontSize: 18,
+                  fontFamily: 'Quicksand',
+                  fontWeight: FontWeight.normal),
+              button: TextStyle(color: Colors.white),
             ),
       ),
       home: MyHomePage(),
@@ -45,28 +45,29 @@ class _MyAppState extends State<MyApp> {
 }
 
 class MyHomePage extends StatefulWidget {
-  MyHomePage({Key? key}) : super(key: key);
+  const MyHomePage({Key? key}) : super(key: key);
 
   @override
   State<MyHomePage> createState() => _MyHomePageState();
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  static int lastIndex = 0;
   final List<Transaction> userTransactions = [
     Transaction(
-      id: 1,
+      id: lastIndex++,
       title: 'New Shoes',
       amount: 69.99,
       date: DateTime(2022, 6, 5),
     ),
     Transaction(
-      id: 2,
+      id: lastIndex++,
       title: 'New House',
       amount: 40.24,
-      date: DateTime(2022, 6, 3),
+      date: DateTime(2022, 6, 7),
     ),
     Transaction(
-      id: 2,
+      id: lastIndex++,
       title: 'Weekly Groceries',
       amount: 16.53,
       date: DateTime.now(),
@@ -78,14 +79,20 @@ class _MyHomePageState extends State<MyHomePage> {
           transaction.date.isAfter(DateTime.now().subtract(Duration(days: 7))))
       .toList();
 
-  void addNewTransaction(String txTitle, double txAmount) {
+  void _addNewTransaction(
+      String txTitle, double txAmount, DateTime transactionDate) {
     Transaction newTx = Transaction(
       title: txTitle,
       amount: txAmount,
-      date: DateTime.now(),
-      id: DateTime.now().millisecondsSinceEpoch,
+      date: transactionDate,
+      id: lastIndex++,
     );
     setState(() => userTransactions.add(newTx));
+  }
+
+  void _deleteTransaction(int id) {
+    setState(() =>
+        userTransactions.removeWhere((transaction) => transaction.id == id));
   }
 
   void startNewTransaction(BuildContext context) {
@@ -95,7 +102,7 @@ class _MyHomePageState extends State<MyHomePage> {
           return GestureDetector(
             onTap: () {},
             behavior: HitTestBehavior.opaque,
-            child: NewTransaction(addNewTransaction),
+            child: NewTransaction(_addNewTransaction),
           );
         });
   }
@@ -120,7 +127,7 @@ class _MyHomePageState extends State<MyHomePage> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
             Chart(recentTransactions),
-            TransactionList(userTransactions),
+            TransactionList(userTransactions,_deleteTransaction),
           ],
         ),
       ),

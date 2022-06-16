@@ -6,7 +6,7 @@ class ChartBar extends StatelessWidget {
   final double pctOfTotalSpent;
 
   ChartBar(this.label, this.spending, this.pctOfTotalSpent, {Key? key})
-      : super(key: key) {}
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +17,8 @@ class ChartBar extends StatelessWidget {
           height: 20,
           child: FittedBox(
             child: Text(
-              '₦${spending.toStringAsFixed(0)}',
+              '\$${spending.toStringAsFixed(0)}',
+              style: Theme.of(context).textTheme.subtitle1,
             ),
           ),
         ),
@@ -34,11 +35,12 @@ class ChartBar extends StatelessWidget {
                   color: const Color.fromARGB(255, 217, 217, 217),
                   borderRadius: BorderRadius.circular(10)),
               child: FractionallySizedBox(
-                heightFactor: pctOfTotalSpent,
+                heightFactor:
+                    pctOfTotalSpent.isNaN ? 0 : pctOfTotalSpent,
                 alignment: Alignment.bottomCenter,
                 child: Container(
                   decoration: BoxDecoration(
-                    color: Theme.of(context).primaryColor,
+                    color: Theme.of(context).colorScheme.primary,
                     borderRadius: BorderRadius.circular(10),
                   ),
                 ),
