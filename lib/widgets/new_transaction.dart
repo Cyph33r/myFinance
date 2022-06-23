@@ -1,7 +1,6 @@
-// ignore_for_file: prefer_const_constructors
-
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:peronal_expenes_app/widgets/adaptive_flat_button.dart';
 
 class NewTransaction extends StatefulWidget {
   const NewTransaction(this.addTx, {Key? key}) : super(key: key);
@@ -32,12 +31,12 @@ class _NewTransactionState extends State<NewTransaction> {
         context: context,
         initialDate: DateTime.now(),
         firstDate: DateTime.now().subtract(
-          Duration(
+          const Duration(
             days: 10000,
           ),
         ),
         lastDate: DateTime.now().add(
-          Duration(
+          const Duration(
             days: 100000,
           ),
         )).then((value) => setState(() {
@@ -47,25 +46,35 @@ class _NewTransactionState extends State<NewTransaction> {
 
   @override
   Widget build(BuildContext context) {
+    print('REbuilding');
     return Card(
       elevation: 5,
       child: Padding(
-        padding: const EdgeInsets.all(10.0),
+        padding: EdgeInsets.only(
+            right: 10,
+            top: 10,
+            left: 10,
+            bottom: MediaQuery.of(context).viewInsets.bottom + 10),
         child: Column(
+          mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
             TextField(
-              decoration: const InputDecoration(labelText: "Title",),
+              decoration: const InputDecoration(
+                labelText: "Title",
+              ),
               style: Theme.of(context).textTheme.subtitle2,
               controller: titleController,
               keyboardType: TextInputType.text,
             ),
             TextField(
-              decoration: const InputDecoration(labelText: "Amount",),
+              decoration: const InputDecoration(
+                labelText: "Amount",
+              ),
               style: Theme.of(context).textTheme.subtitle2,
               controller: amountController,
-              keyboardType:
-                  TextInputType.numberWithOptions(signed: false, decimal: true),
+              keyboardType: const TextInputType.numberWithOptions(
+                  signed: false, decimal: true),
               onSubmitted: (_) => _submitTransaction(),
             ),
             SizedBox(
@@ -77,24 +86,13 @@ class _NewTransactionState extends State<NewTransaction> {
                       currentTime == null
                           ? 'No Date Chosen'
                           : 'Transaction Date: ${DateFormat.yMd().format(currentTime!)}',
-                      style: TextStyle(fontWeight: FontWeight.bold),
+                      style: const TextStyle(fontWeight: FontWeight.bold),
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 10,
                   ),
-                  TextButton(
-                    style: TextButton.styleFrom(
-                      textStyle: TextStyle(
-                        color: Theme.of(context).colorScheme.primary,
-                      ),
-                    ),
-                    onPressed: () => _getTransactionDate(),
-                    child: Text(
-                      'Choose Date',
-                      style: TextStyle(fontWeight: FontWeight.bold),
-                    ),
-                  )
+                  AdaptiveFlatButton('Choose Date', _getTransactionDate),
                 ],
               ),
             ),
